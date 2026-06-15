@@ -4,6 +4,19 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DayZeroFoundry — turn your idea into a real product</title>
+<meta name="description" content="DayZeroFoundry takes your raw idea and forges it into a working MVP, built by our dev team at zero cost to you." />
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="DayZeroFoundry — turn your idea into a real product" />
+<meta property="og:description" content="DayZeroFoundry takes your raw idea and forges it into a working MVP, built by our dev team at zero cost to you." />
+<meta property="og:image" content="/public/og.png" />
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content="DayZeroFoundry — turn your idea into a real product" />
+<meta property="twitter:description" content="DayZeroFoundry takes your raw idea and forges it into a working MVP, built by our dev team at zero cost to you." />
+<meta property="twitter:image" content="/public/og.png" />
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="/public/favicon.ico" />
 <style>
   :root{
     --paper:#ffffff;
@@ -92,6 +105,8 @@
     background-repeat:no-repeat;background-position:right 15px center;padding-right:40px;cursor:pointer}
   input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ember);
     box-shadow:0 0 0 3px rgba(217,83,27,.14)}
+  input:focus-visible,select:focus-visible,textarea:focus-visible{
+    outline:2px solid var(--ember);outline-offset:2px}
   .hint{font-size:13.5px;font-style:italic;color:var(--ink-faint)}
   .err{color:#c0390a;font-size:13.5px;min-height:0}
 
@@ -197,28 +212,34 @@
 
       <div class="console-body" id="formBody">
         <div class="grid">
+          <!-- Honeypot field for spam prevention -->
+          <div class="field" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true">
+            <label for="company_url">Leave this field blank</label>
+            <input id="company_url" type="text" name="company_url" tabindex="-1" autocomplete="off" />
+          </div>
+
           <div class="field">
             <label for="name">Your name <span class="req">*</span></label>
-            <input id="name" type="text" placeholder="What should we call you?" autocomplete="name" />
-            <span class="err" id="err-name"></span>
+            <input id="name" type="text" placeholder="What should we call you?" autocomplete="name" aria-required="true" aria-invalid="false" />
+            <span class="err" id="err-name" aria-live="polite"></span>
           </div>
           <div class="field">
             <label for="email">Personal email <span class="req">*</span></label>
-            <input id="email" type="email" placeholder="you@gmail.com" autocomplete="email" />
+            <input id="email" type="email" placeholder="you@gmail.com" autocomplete="email" aria-required="true" aria-invalid="false" />
             <span class="hint">Use a personal email, not a work one — avoids any company security flags.</span>
-            <span class="err" id="err-email"></span>
+            <span class="err" id="err-email" aria-live="polite"></span>
           </div>
           <div class="field">
             <label for="role">What you do <span style="color:var(--ink-faint)">(optional)</span></label>
             <select id="role">
               <option value="">Select…</option>
-              <option>Founder</option>
-              <option>Student</option>
-              <option>Developer / Engineer</option>
-              <option>Designer / Creator</option>
-              <option>Business / Product</option>
-              <option>Working professional</option>
-              <option>Just someone with an idea</option>
+              <option value="Founder">Founder</option>
+              <option value="Student">Student</option>
+              <option value="Developer or Engineer">Developer or Engineer</option>
+              <option value="Designer or Creator">Designer or Creator</option>
+              <option value="Business or Product">Business or Product</option>
+              <option value="Working professional">Working professional</option>
+              <option value="Just someone with an idea">Just someone with an idea</option>
             </select>
           </div>
           <div class="field">
@@ -228,15 +249,18 @@
 
           <div class="field full">
             <label for="idea">Your idea <span class="req">*</span></label>
-            <textarea id="idea" placeholder="What do you want to exist that doesn't yet? Say it the way you'd say it out loud."></textarea>
-            <span class="hint">The rawer the better. We'll help you sharpen it.</span>
-            <span class="err" id="err-idea"></span>
+            <textarea id="idea" maxlength="4000" placeholder="What do you want to exist that doesn't yet? Say it the way you'd say it out loud." aria-required="true" aria-invalid="false"></textarea>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
+              <span class="hint">The rawer the better. We'll help you sharpen it.</span>
+              <span class="hint" id="char-counter" style="transition: color 0.15s;">0 / 4000</span>
+            </div>
+            <span class="err" id="err-idea" aria-live="polite"></span>
           </div>
         </div>
       </div>
 
       <div class="console-foot" id="formFoot">
-        <p class="pledge">A real person reads every idea. If it's a fit, you'll hear back from us directly.</p>
+        <p class="pledge" style="font-style: italic;">Your idea stays yours. A real person reads every submission.</p>
         <button class="fire" id="fireBtn">Send my idea</button>
       </div>
 
@@ -245,11 +269,23 @@
           <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
         <h3>Got it — it's in the forge.</h3>
-        <p>Your idea is with us. We'll review it ourselves and reach out to you soon. Keep an eye on your inbox.</p>
+        <p>Your idea is with us. We'll review it ourselves and reach out soon — keep an eye on your inbox.</p>
         <div class="castid" id="castid">DZ-00-XXXX</div>
         <div><button class="reset" id="resetBtn">Send another idea</button></div>
       </div>
     </div>
+  </div>
+</section>
+
+<section class="trust" style="padding: 60px 0 20px;">
+  <div class="wrap" style="max-width: 650px; text-align: center; margin: 0 auto;">
+    <h3 style="font-size: 26px; font-weight: 700; margin: 0 0 16px; letter-spacing: -0.01em;">Why it's free</h3>
+    <p style="color: var(--ink-soft); font-size: 18px; line-height: 1.65; margin: 0 0 18px;">
+      We're Veixon — we build products for a living. DayZeroFoundry is how we partner with great ideas early. We build your MVP for free; if it takes off, we talk about working together. Either way, the idea is yours.
+    </p>
+    <p style="font-weight: 700; font-style: italic; color: var(--ink); font-size: 17px; margin: 0;">
+      Your idea stays yours — we don't share or reuse it.
+    </p>
   </div>
 </section>
 
@@ -266,7 +302,7 @@
       <div class="step">
         <span class="num">02 — Blueprint</span>
         <h4>We scope the smallest real thing</h4>
-        <p>A quick chat to agree on the cut — the MVP that proves your idea is worth more.</p>
+        <p>A quick chat to agree on the MVP that proves your idea is worth more.</p>
         <span class="when">Right after we connect</span>
       </div>
       <div class="step">
@@ -291,45 +327,244 @@
 (function(){
   /* ─────────── CONFIG ───────────
      DEMO_MODE = true  → no backend needed; the form just shows a success screen (good for previewing).
-     DEMO_MODE = false → sends a real POST to API_URL (your deployed backend in /backend).
+     DEMO_MODE = false → sends a real POST to API_URL (your deployed backend).
   */
-  var DEMO_MODE = true;
-  var API_URL   = '/api/intake';   // e.g. 'https://your-backend.onrender.com/api/intake'
+  var DEMO_MODE = false;
+  var API_URL   = '/api/intake';
 
   var btn = document.getElementById('fireBtn');
-  function clearErr(){ ['name','email','idea'].forEach(function(f){ document.getElementById('err-'+f).textContent=''; }); }
-  function setErr(f,m){ document.getElementById('err-'+f).textContent=m; }
-  function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-  function castId(){ return 'DZ-00-' + Math.floor(1+Math.random()*9999).toString().padStart(4,'0'); }
+  var ideaTextarea = document.getElementById('idea');
+  var charCounter = document.getElementById('char-counter');
+  var consoleCard = document.getElementById('console');
+  var honeypotField = document.getElementById('company_url');
+  
+  var fields = ['name', 'email', 'role', 'company', 'idea'];
+  var requiredFields = ['name', 'email', 'idea'];
+
+  // Analytics Event Tracker Stub
+  function track(event, data) {
+    console.log('Analytics Event:', event, data || '');
+    // TODO: Wire Vercel Analytics / Plausible / GA4 here
+    if (window.va) {
+      window.va('event', { name: event, data: data });
+    }
+  }
+
+  // Track form_start on first field focus
+  var formStarted = false;
+  fields.forEach(function(f) {
+    var el = document.getElementById(f);
+    if (el) {
+      el.addEventListener('focus', function() {
+        if (!formStarted) {
+          formStarted = true;
+          track('form_start');
+        }
+      });
+    }
+  });
+
+  // Character Counter Logic
+  function updateCharCounter(val) {
+    var len = val.length;
+    charCounter.textContent = len + ' / 4000';
+    if (len >= 3800) {
+      charCounter.style.color = 'var(--ember)';
+      charCounter.style.fontWeight = 'bold';
+    } else {
+      charCounter.style.color = 'var(--ink-faint)';
+      charCounter.style.fontWeight = 'normal';
+    }
+  }
+
+  // Draft Autosave & Restore
+  function restoreDraft() {
+    fields.forEach(function(f) {
+      var el = document.getElementById(f);
+      if (el) {
+        var savedVal = localStorage.getItem('dz_draft_' + f);
+        if (savedVal !== null) {
+          el.value = savedVal;
+          if (f === 'idea') {
+            updateCharCounter(savedVal);
+          }
+        }
+      }
+    });
+  }
+
+  function saveDraft() {
+    fields.forEach(function(f) {
+      var el = document.getElementById(f);
+      if (el) {
+        localStorage.setItem('dz_draft_' + f, el.value);
+      }
+    });
+  }
+
+  function clearDraft() {
+    fields.forEach(function(f) {
+      localStorage.removeItem('dz_draft_' + f);
+    });
+  }
+
+  // Bind input events for draft saving
+  fields.forEach(function(f) {
+    var el = document.getElementById(f);
+    if (el) {
+      var eventType = (f === 'role') ? 'change' : 'input';
+      el.addEventListener(eventType, function() {
+        saveDraft();
+        if (f === 'idea') {
+          updateCharCounter(this.value);
+        }
+      });
+    }
+  });
+
+  // Load draft on startup
+  restoreDraft();
+
+  // Helper functions for errors
+  function clearErr(){ 
+    requiredFields.forEach(function(f){ 
+      var errEl = document.getElementById('err-'+f);
+      errEl.textContent=''; 
+      var el = document.getElementById(f);
+      el.setAttribute('aria-invalid', 'false');
+      el.removeAttribute('aria-describedby');
+    }); 
+  }
+  
+  function setErr(f, m){ 
+    var errEl = document.getElementById('err-'+f);
+    errEl.textContent = m; 
+    var el = document.getElementById(f);
+    el.setAttribute('aria-invalid', 'true');
+    el.setAttribute('aria-describedby', 'err-' + f);
+  }
+
+  function isEmail(v){ 
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); 
+  }
+
+  // Field level validation
+  function validateField(f) {
+    var el = document.getElementById(f);
+    var val = el.value.trim();
+    var isValid = true;
+    var msg = '';
+
+    if (f === 'name') {
+      if (!val) {
+        msg = 'Tell us who to reply to.';
+        isValid = false;
+      }
+    } else if (f === 'email') {
+      if (!val) {
+        msg = 'We need an email to reach you.';
+        isValid = false;
+      } else if (!isEmail(val)) {
+        msg = 'That email looks off — check it.';
+        isValid = false;
+      }
+    } else if (f === 'idea') {
+      if (!val) {
+        msg = 'The forge needs an idea to work with.';
+        isValid = false;
+      } else if (val.length < 20) {
+        msg = 'Your idea description is too short (minimum 20 characters).';
+        isValid = false;
+      }
+    }
+
+    if (!isValid) {
+      setErr(f, msg);
+    } else {
+      var errEl = document.getElementById('err-'+f);
+      if (errEl) errEl.textContent='';
+      el.setAttribute('aria-invalid', 'false');
+      el.removeAttribute('aria-describedby');
+    }
+    return isValid;
+  }
+
+  // Inline Validation on Blur
+  requiredFields.forEach(function(f) {
+    var el = document.getElementById(f);
+    if (el) {
+      el.addEventListener('blur', function() {
+        validateField(f);
+      });
+    }
+  });
+
+  // Keyboard shortcut: Cmd/Ctrl + Enter inside console card
+  consoleCard.addEventListener('keydown', function(e) {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      e.preventDefault();
+      btn.click();
+    }
+  });
 
   function showForged(id){
     document.getElementById('formBody').style.display='none';
     document.getElementById('formFoot').style.display='none';
     document.getElementById('tag').textContent='Received';
-    document.getElementById('castid').textContent = id || castId();
+    document.getElementById('castid').textContent = id || ('DZ-00-' + Math.floor(1000 + Math.random() * 9000));
     document.getElementById('forged').classList.add('show');
+    
+    // Clear draft storage since it successfully saved
+    clearDraft();
+    
+    // Track success
+    track('form_submit_success', { castId: id });
+
     document.getElementById('console').scrollIntoView({behavior:'smooth', block:'center'});
   }
 
   btn.addEventListener('click', async function(){
     clearErr();
+    
     var data = {
-      name:    document.getElementById('name').value.trim(),
-      email:   document.getElementById('email').value.trim(),
-      role:    document.getElementById('role').value.trim(),
-      company: document.getElementById('company').value.trim(),
-      idea:    document.getElementById('idea').value.trim()
+      name:        document.getElementById('name').value.trim(),
+      email:       document.getElementById('email').value.trim(),
+      role:        document.getElementById('role').value.trim(),
+      company:     document.getElementById('company').value.trim(),
+      idea:        document.getElementById('idea').value.trim(),
+      company_url: honeypotField.value // Honeypot field
     };
+
     var ok = true;
-    if(!data.name){ setErr('name','Tell us who to reply to.'); ok=false; }
-    if(!data.email){ setErr('email','We need an email to reach you.'); ok=false; }
-    else if(!isEmail(data.email)){ setErr('email','That email looks off — check it.'); ok=false; }
-    if(!data.idea){ setErr('idea','The forge needs an idea to work with.'); ok=false; }
-    if(!ok) return;
+    var firstInvalidField = null;
 
-    if(DEMO_MODE){ showForged(); return; }
+    // Run full validation check
+    requiredFields.forEach(function(f) {
+      var fieldOk = validateField(f);
+      if (!fieldOk) {
+        ok = false;
+        if (!firstInvalidField) {
+          firstInvalidField = document.getElementById(f);
+        }
+      }
+    });
 
-    btn.disabled = true; btn.textContent = 'Sending…';
+    if(!ok) {
+      if (firstInvalidField) {
+        firstInvalidField.focus();
+        document.getElementById('console').scrollIntoView({behavior:'smooth', block:'start'});
+      }
+      return;
+    }
+
+    if(DEMO_MODE){ 
+      showForged(); 
+      return; 
+    }
+
+    btn.disabled = true; 
+    btn.textContent = 'Sending…';
+    
     try{
       var res = await fetch(API_URL, {
         method:'POST',
@@ -340,20 +575,29 @@
       if(!res.ok) throw new Error(out.error || 'Request failed');
       showForged(out.castId);
     }catch(e){
-      setErr('idea', 'Could not send right now — please try again in a moment.');
-      btn.disabled = false; btn.textContent = 'Send my idea';
+      setErr('idea', e.message || 'Could not send right now — please try again in a moment.');
+      btn.disabled = false; 
+      btn.textContent = 'Send my idea';
     }
   });
 
   document.getElementById('resetBtn').addEventListener('click', function(){
-    ['name','email','company','idea'].forEach(function(f){ document.getElementById(f).value=''; });
+    ['name','email','company','idea','company_url'].forEach(function(f){ 
+      var el = document.getElementById(f);
+      if (el) el.value=''; 
+    });
     document.getElementById('role').value='';
+    
+    // Reset Char Counter UI
+    updateCharCounter('');
+    
     clearErr();
     document.getElementById('forged').classList.remove('show');
     document.getElementById('formBody').style.display='';
     document.getElementById('formFoot').style.display='';
     document.getElementById('tag').textContent='Intake';
-    btn.disabled=false; btn.textContent='Send my idea';
+    btn.disabled=false; 
+    btn.textContent='Send my idea';
     document.getElementById('console').scrollIntoView({behavior:'smooth', block:'start'});
   });
 })();
