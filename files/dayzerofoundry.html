@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DayZeroFoundry — turn your idea into a real product</title>
+<style>
+  :root{
+    --paper:#ffffff;
+    --beige:#f5ecdb;
+    --beige-2:#fbf5ea;
+    --sand:#e8dcc4;
+    --sand-soft:#f0e6d4;
+    --ink:#2b2017;
+    --ink-soft:#6e6357;
+    --ink-faint:#9a8f80;
+    --ember:#d9531b;
+    --ember-bright:#ff8a3d;
+    --ember-deep:#b23e0e;
+    --serif:'Times New Roman',Times,serif;
+    --maxw:1100px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--serif);font-size:18.5px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(800px 480px at 92% -6%, rgba(217,83,27,.07), transparent 62%);
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  /* signature: warm pour-line divider */
+  .seam{height:2px;width:100%;border:0;margin:0;
+    background:linear-gradient(90deg,transparent,var(--ember) 20%,var(--ember-bright) 50%,var(--ember) 80%,transparent);
+    opacity:.7}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.86);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--sand)}
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .mark{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:.01em;color:var(--ink);text-decoration:none}
+  .mark .slash{color:var(--ember)}
+  .mark .dim{color:var(--ink-soft);font-weight:400}
+  .nav-right{display:flex;align-items:center;gap:26px}
+  .nav-link{font-size:16px;color:var(--ink-soft);text-decoration:none;transition:color .15s}
+  .nav-link:hover{color:var(--ember)}
+  .nav-cta{font-size:15.5px;color:var(--ember);text-decoration:none;border:1px solid var(--ember);
+    padding:8px 17px;border-radius:999px;transition:background .15s,color .15s}
+  .nav-cta:hover{background:var(--ember);color:#fff}
+
+  /* hero */
+  header.hero{padding:90px 0 26px}
+  .eyebrow{font-style:italic;font-size:18px;color:var(--ember);margin:0 0 22px}
+  h1{font-weight:700;letter-spacing:-.01em;line-height:1.06;
+    font-size:clamp(40px,6.6vw,76px);margin:0;max-width:15ch}
+  h1 .em{color:var(--ember);font-style:italic}
+  .lede{font-size:clamp(18px,2vw,22px);color:var(--ink-soft);max-width:56ch;margin:26px 0 0}
+  .lede b{color:var(--ink);font-weight:700}
+  .strap{display:inline-block;margin-top:30px;font-size:19px;font-style:italic;color:var(--ink);
+    border-bottom:2px solid var(--ember)}
+  .hero-meta{display:flex;gap:42px;margin-top:46px;flex-wrap:wrap}
+  .hero-meta div{display:flex;flex-direction:column;gap:3px}
+  .hero-meta .k{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
+  .hero-meta .v{font-size:25px;font-weight:700}
+  .hero-meta .v span{color:var(--ember)}
+
+  /* intake console — the centerpiece */
+  section.intake{padding:58px 0 26px}
+  .console{position:relative;background:var(--beige);border:1px solid var(--sand);
+    border-radius:16px;overflow:hidden;box-shadow:0 24px 60px -28px rgba(120,72,30,.32)}
+  .console::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;
+    background:linear-gradient(90deg,var(--ember-deep),var(--ember-bright),var(--ember-deep))}
+  .console-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+    padding:26px 32px;border-bottom:1px solid var(--sand);flex-wrap:wrap;background:var(--beige-2)}
+  .console-head h2{font-size:27px;font-weight:700;margin:0;letter-spacing:-.01em}
+  .console-head p{margin:7px 0 0;color:var(--ink-soft);font-size:16px;max-width:48ch}
+  .tag{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ember);
+    border:1px solid rgba(217,83,27,.4);padding:6px 12px;border-radius:999px;white-space:nowrap}
+  .console-body{padding:32px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 24px}
+  .field{display:flex;flex-direction:column;gap:8px}
+  .field.full{grid-column:1 / -1}
+  label{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+  label .req{color:var(--ember)}
+  input,select,textarea{font-family:var(--serif);font-size:17px;color:var(--ink);
+    background:var(--paper);border:1px solid var(--sand);border-radius:10px;padding:14px 15px;
+    width:100%;transition:border-color .18s,box-shadow .18s}
+  textarea{resize:vertical;min-height:140px;line-height:1.55}
+  ::placeholder{color:#b6ab98;font-style:italic}
+  select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' stroke='%236e6357' stroke-width='1.5' fill='none'/></svg>");
+    background-repeat:no-repeat;background-position:right 15px center;padding-right:40px;cursor:pointer}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ember);
+    box-shadow:0 0 0 3px rgba(217,83,27,.14)}
+  .hint{font-size:13.5px;font-style:italic;color:var(--ink-faint)}
+  .err{color:#c0390a;font-size:13.5px;min-height:0}
+
+  .console-foot{display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:6px 32px 32px;flex-wrap:wrap}
+  .pledge{font-size:14.5px;font-style:italic;color:var(--ink-faint);max-width:46ch;line-height:1.55}
+  .fire{font-family:var(--serif);font-weight:700;font-size:17px;color:#fff;
+    background:linear-gradient(180deg,var(--ember-bright),var(--ember));border:0;border-radius:11px;
+    padding:15px 32px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;white-space:nowrap;
+    box-shadow:0 12px 30px -8px rgba(217,83,27,.5);transition:transform .14s,box-shadow .18s,filter .18s}
+  .fire:hover{transform:translateY(-1px);box-shadow:0 16px 40px -8px rgba(217,83,27,.6)}
+  .fire:active{transform:translateY(0)}
+  .fire:disabled{opacity:.65;cursor:default;transform:none}
+  .fire:focus-visible{outline:3px solid var(--ember-bright);outline-offset:3px}
+
+  /* forged confirmation */
+  .forged{display:none;padding:58px 32px 60px;text-align:center}
+  .forged.show{display:block;animation:rise .7s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+  .forged .ring{width:64px;height:64px;border-radius:50%;margin:0 auto 22px;
+    background:radial-gradient(circle at 50% 40%,var(--ember-bright),var(--ember-deep));
+    box-shadow:0 0 0 8px rgba(217,83,27,.12),0 14px 40px -10px rgba(217,83,27,.55);
+    display:flex;align-items:center;justify-content:center}
+  .forged .ring svg{width:30px;height:30px;stroke:#fff}
+  .forged h3{font-size:30px;font-weight:700;margin:0 0 10px;letter-spacing:-.01em}
+  .forged p{color:var(--ink-soft);margin:0 auto;max-width:50ch;font-size:17px}
+  .castid{font-size:16px;color:var(--ember);margin:24px auto 4px;letter-spacing:.08em;
+    border:1px dashed rgba(217,83,27,.45);border-radius:9px;padding:11px 18px;display:inline-block}
+  .reset{margin-top:26px;background:none;border:1px solid var(--sand);color:var(--ink-soft);
+    font-family:var(--serif);font-size:15px;padding:11px 20px;border-radius:9px;cursor:pointer;transition:border-color .15s,color .15s}
+  .reset:hover{border-color:var(--ember);color:var(--ink)}
+
+  /* process — a real sequence */
+  section.process{padding:80px 0 26px}
+  .sec-label{font-style:italic;font-size:18px;color:var(--ember);margin:0 0 32px}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .step{background:var(--beige);border:1px solid var(--sand);border-radius:14px;padding:30px 28px 32px}
+  .step .num{font-size:14px;letter-spacing:.14em;color:var(--ember);text-transform:uppercase}
+  .step h4{font-size:22px;font-weight:700;margin:16px 0 10px;letter-spacing:-.01em}
+  .step p{color:var(--ink-soft);font-size:16px;margin:0}
+  .step .when{font-size:13px;font-style:italic;color:var(--ink-faint);margin-top:18px;display:block}
+
+  /* footer */
+  footer{padding:64px 0 60px;margin-top:30px;border-top:1px solid var(--sand)}
+  .foot-in{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+  .foot-in .mark{font-size:18px}
+  footer .fine{font-size:14px;color:var(--ink-faint);font-style:italic}
+  footer a{color:var(--ember);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  @media(max-width:760px){
+    .wrap{padding:0 20px}
+    header.hero{padding:60px 0 18px}
+    .nav-right{gap:16px}
+    .nav-link{display:none}
+    .grid{grid-template-columns:1fr}
+    .console-body{padding:24px 20px}
+    .console-head{padding:22px 20px}
+    .console-foot{padding:4px 20px 26px}
+    .steps{grid-template-columns:1fr}
+    .hero-meta{gap:28px}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#" class="mark">DayZero<span class="slash">/</span><span class="dim">Foundry</span></a>
+    <div class="nav-right">
+      <a class="nav-link" href="#how">How it works</a>
+      <a class="nav-cta" href="https://www.veixon.com/#contact" target="_blank" rel="noopener">Contact us</a>
+    </div>
+  </div>
+</nav>
+<hr class="seam" />
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">A Veixon foundry — idea to product</p>
+    <h1>Everyone has an idea. We make <span class="em">yours</span> real.</h1>
+    <p class="lede">DayZeroFoundry takes your idea — however rough — and forges it into a working MVP. <b>Built by our dev team, at zero cost to you,</b> starting day zero. You bring the spark. We bring the build.</p>
+    <span class="strap">Idea in. Product out.</span>
+    <div class="hero-meta">
+      <div><span class="k">Your cost</span><span class="v"><span>₹0</span></span></div>
+      <div><span class="k">Built by</span><span class="v">our dev team</span></div>
+      <div><span class="k">Timeline</span><span class="v">shaped by your idea</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="intake">
+  <div class="wrap">
+    <div class="console" id="console">
+      <div class="console-head">
+        <div>
+          <h2>Drop your idea into the forge</h2>
+          <p>A few honest sentences are enough — we shape the rest with you. No pitch deck required.</p>
+        </div>
+        <span class="tag" id="tag">Intake</span>
+      </div>
+
+      <div class="console-body" id="formBody">
+        <div class="grid">
+          <div class="field">
+            <label for="name">Your name <span class="req">*</span></label>
+            <input id="name" type="text" placeholder="What should we call you?" autocomplete="name" />
+            <span class="err" id="err-name"></span>
+          </div>
+          <div class="field">
+            <label for="email">Personal email <span class="req">*</span></label>
+            <input id="email" type="email" placeholder="you@gmail.com" autocomplete="email" />
+            <span class="hint">Use a personal email, not a work one — avoids any company security flags.</span>
+            <span class="err" id="err-email"></span>
+          </div>
+          <div class="field">
+            <label for="role">What you do <span style="color:var(--ink-faint)">(optional)</span></label>
+            <select id="role">
+              <option value="">Select…</option>
+              <option>Founder</option>
+              <option>Student</option>
+              <option>Developer / Engineer</option>
+              <option>Designer / Creator</option>
+              <option>Business / Product</option>
+              <option>Working professional</option>
+              <option>Just someone with an idea</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="company">Company or project <span style="color:var(--ink-faint)">(optional)</span></label>
+            <input id="company" type="text" placeholder="If it has a name yet" autocomplete="organization" />
+          </div>
+
+          <div class="field full">
+            <label for="idea">Your idea <span class="req">*</span></label>
+            <textarea id="idea" placeholder="What do you want to exist that doesn't yet? Say it the way you'd say it out loud."></textarea>
+            <span class="hint">The rawer the better. We'll help you sharpen it.</span>
+            <span class="err" id="err-idea"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="console-foot" id="formFoot">
+        <p class="pledge">A real person reads every idea. If it's a fit, you'll hear back from us directly.</p>
+        <button class="fire" id="fireBtn">Send my idea</button>
+      </div>
+
+      <div class="forged" id="forged">
+        <div class="ring">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h3>Got it — it's in the forge.</h3>
+        <p>Your idea is with us. We'll review it ourselves and reach out to you soon. Keep an eye on your inbox.</p>
+        <div class="castid" id="castid">DZ-00-XXXX</div>
+        <div><button class="reset" id="resetBtn">Send another idea</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="process" id="how">
+  <div class="wrap">
+    <p class="sec-label">How day zero works</p>
+    <div class="steps">
+      <div class="step">
+        <span class="num">01 — Intake</span>
+        <h4>You share the idea</h4>
+        <p>One short form. We sit with it and come back with what we'd build first, and why.</p>
+        <span class="when">Day zero · zero cost</span>
+      </div>
+      <div class="step">
+        <span class="num">02 — Blueprint</span>
+        <h4>We scope the smallest real thing</h4>
+        <p>A quick chat to agree on the cut — the MVP that proves your idea is worth more.</p>
+        <span class="when">Right after we connect</span>
+      </div>
+      <div class="step">
+        <span class="num">03 — Forge</span>
+        <h4>Our team builds it</h4>
+        <p>You get a working MVP you can click, demo, and put in front of real people.</p>
+        <span class="when">Timeline depends on the idea</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="seam" style="margin-top:40px" />
+<footer>
+  <div class="wrap foot-in">
+    <a href="#" class="mark">DayZero<span class="slash">/</span><span class="dim">Foundry</span></a>
+    <span class="fine">A Veixon product · <a href="https://www.veixon.com/#contact" target="_blank" rel="noopener">Contact us</a></span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ─────────── CONFIG ───────────
+     DEMO_MODE = true  → no backend needed; the form just shows a success screen (good for previewing).
+     DEMO_MODE = false → sends a real POST to API_URL (your deployed backend in /backend).
+  */
+  var DEMO_MODE = true;
+  var API_URL   = '/api/intake';   // e.g. 'https://your-backend.onrender.com/api/intake'
+
+  var btn = document.getElementById('fireBtn');
+  function clearErr(){ ['name','email','idea'].forEach(function(f){ document.getElementById('err-'+f).textContent=''; }); }
+  function setErr(f,m){ document.getElementById('err-'+f).textContent=m; }
+  function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function castId(){ return 'DZ-00-' + Math.floor(1+Math.random()*9999).toString().padStart(4,'0'); }
+
+  function showForged(id){
+    document.getElementById('formBody').style.display='none';
+    document.getElementById('formFoot').style.display='none';
+    document.getElementById('tag').textContent='Received';
+    document.getElementById('castid').textContent = id || castId();
+    document.getElementById('forged').classList.add('show');
+    document.getElementById('console').scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  btn.addEventListener('click', async function(){
+    clearErr();
+    var data = {
+      name:    document.getElementById('name').value.trim(),
+      email:   document.getElementById('email').value.trim(),
+      role:    document.getElementById('role').value.trim(),
+      company: document.getElementById('company').value.trim(),
+      idea:    document.getElementById('idea').value.trim()
+    };
+    var ok = true;
+    if(!data.name){ setErr('name','Tell us who to reply to.'); ok=false; }
+    if(!data.email){ setErr('email','We need an email to reach you.'); ok=false; }
+    else if(!isEmail(data.email)){ setErr('email','That email looks off — check it.'); ok=false; }
+    if(!data.idea){ setErr('idea','The forge needs an idea to work with.'); ok=false; }
+    if(!ok) return;
+
+    if(DEMO_MODE){ showForged(); return; }
+
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try{
+      var res = await fetch(API_URL, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(data)
+      });
+      var out = await res.json();
+      if(!res.ok) throw new Error(out.error || 'Request failed');
+      showForged(out.castId);
+    }catch(e){
+      setErr('idea', 'Could not send right now — please try again in a moment.');
+      btn.disabled = false; btn.textContent = 'Send my idea';
+    }
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    ['name','email','company','idea'].forEach(function(f){ document.getElementById(f).value=''; });
+    document.getElementById('role').value='';
+    clearErr();
+    document.getElementById('forged').classList.remove('show');
+    document.getElementById('formBody').style.display='';
+    document.getElementById('formFoot').style.display='';
+    document.getElementById('tag').textContent='Intake';
+    btn.disabled=false; btn.textContent='Send my idea';
+    document.getElementById('console').scrollIntoView({behavior:'smooth', block:'start'});
+  });
+})();
+</script>
+</body>
+</html>
