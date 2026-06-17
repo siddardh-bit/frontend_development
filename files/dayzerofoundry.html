@@ -4,144 +4,153 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DayZeroFoundry — turn your idea into a real product</title>
-<meta name="description" content="DayZeroFoundry takes your raw idea and forges it into a working MVP, built by our dev team at zero cost to you." />
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta name="description" content="Share your idea and our team forges it into a working MVP — at zero cost, and your idea stays yours." />
+<!-- link-share preview (replace og.png with a real 1200x630 image) -->
 <meta property="og:title" content="DayZeroFoundry — turn your idea into a real product" />
-<meta property="og:description" content="DayZeroFoundry takes your raw idea and forges it into a working MVP, built by our dev team at zero cost to you." />
-<meta property="og:image" content="/public/og.png" />
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:title" content="DayZeroFoundry — turn your idea into a real product" />
-<meta property="twitter:description" content="DayZeroFoundry takes your raw idea and forges it into a working MVP, built by our dev team at zero cost to you." />
-<meta property="twitter:image" content="/public/og.png" />
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="/public/favicon.ico" />
+<meta property="og:description" content="Share your idea and our team builds it into a working MVP — free. Your idea stays yours." />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://www.veixon.com/logo/logo.png" />
+<meta name="twitter:card" content="summary_large_image" />
 <style>
   :root{
-    --paper:#ffffff;
-    --beige:#f5ecdb;
-    --beige-2:#fbf5ea;
-    --sand:#e8dcc4;
-    --sand-soft:#f0e6d4;
-    --ink:#2b2017;
-    --ink-soft:#6e6357;
-    --ink-faint:#9a8f80;
-    --ember:#d9531b;
-    --ember-bright:#ff8a3d;
-    --ember-deep:#b23e0e;
+    /* base */
+    --paper:#ffffff; --beige:#f5ecdb; --beige-2:#fbf5ea; --sand:#e8dcc4; --sand-soft:#f0e6d4;
+    --ink:#2b2017; --ink-soft:#6e6357; --ink-faint:#9a8f80;
+    /* spark */
+    --ember:#d9531b; --ember-bright:#ff8a3d; --ember-deep:#b23e0e;
+    /* growth */
+    --green:#1b7a52; --green-deep:#0f5d3d; --green-soft:#e7f3ec;
+    /* worth */
+    --brass:#b8893b; --brass-deep:#8a6326;
+    /* security */
+    --navy:#16273c; --navy-2:#1d3350; --navy-soft:#dce6f2; --navy-line:rgba(220,230,242,.16);
     --serif:'Times New Roman',Times,serif;
     --maxw:1100px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{
-    margin:0;background:var(--paper);color:var(--ink);
-    font-family:var(--serif);font-size:18.5px;line-height:1.62;
-    -webkit-font-smoothing:antialiased;
-    background-image:radial-gradient(800px 480px at 92% -6%, rgba(217,83,27,.07), transparent 62%);
-  }
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--serif);font-size:18.5px;line-height:1.62;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(800px 480px at 92% -6%, rgba(217,83,27,.07), transparent 62%);}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
 
-  /* signature: warm pour-line divider */
   .seam{height:2px;width:100%;border:0;margin:0;
-    background:linear-gradient(90deg,transparent,var(--ember) 20%,var(--ember-bright) 50%,var(--ember) 80%,transparent);
-    opacity:.7}
+    background:linear-gradient(90deg,transparent,var(--ember) 20%,var(--ember-bright) 50%,var(--ember) 80%,transparent);opacity:.7}
 
   /* nav */
-  nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.86);backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--sand)}
+  nav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.86);backdrop-filter:blur(8px);border-bottom:1px solid var(--sand)}
   .nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
-  .mark{font-family:var(--serif);font-weight:700;font-size:22px;letter-spacing:.01em;color:var(--ink);text-decoration:none}
-  .mark .slash{color:var(--ember)}
-  .mark .dim{color:var(--ink-soft);font-weight:400}
+  .mark{font-weight:700;font-size:22px;color:var(--ink);text-decoration:none}
+  .mark .slash{color:var(--ember)} .mark .dim{color:var(--ink-soft);font-weight:400}
   .nav-right{display:flex;align-items:center;gap:26px}
   .nav-link{font-size:16px;color:var(--ink-soft);text-decoration:none;transition:color .15s}
   .nav-link:hover{color:var(--ember)}
-  .nav-cta{font-size:15.5px;color:var(--ember);text-decoration:none;border:1px solid var(--ember);
-    padding:8px 17px;border-radius:999px;transition:background .15s,color .15s}
+  .nav-cta{font-size:15.5px;color:var(--ember);text-decoration:none;border:1px solid var(--ember);padding:8px 17px;border-radius:999px;transition:background .15s,color .15s}
   .nav-cta:hover{background:var(--ember);color:#fff}
 
   /* hero */
-  header.hero{padding:90px 0 26px}
+  header.hero{padding:90px 0 24px}
   .eyebrow{font-style:italic;font-size:18px;color:var(--ember);margin:0 0 22px}
-  h1{font-weight:700;letter-spacing:-.01em;line-height:1.06;
-    font-size:clamp(40px,6.6vw,76px);margin:0;max-width:15ch}
+  h1{font-weight:700;letter-spacing:-.01em;line-height:1.06;font-size:clamp(40px,6.6vw,76px);margin:0;max-width:15ch}
   h1 .em{color:var(--ember);font-style:italic}
   .lede{font-size:clamp(18px,2vw,22px);color:var(--ink-soft);max-width:56ch;margin:26px 0 0}
   .lede b{color:var(--ink);font-weight:700}
-  .strap{display:inline-block;margin-top:30px;font-size:19px;font-style:italic;color:var(--ink);
-    border-bottom:2px solid var(--ember)}
-  .hero-meta{display:flex;gap:42px;margin-top:46px;flex-wrap:wrap}
+  .strap{display:inline-block;margin-top:30px;font-size:19px;font-style:italic;color:var(--ink);border-bottom:2px solid var(--ember)}
+  .hero-meta{display:flex;gap:42px;margin-top:44px;flex-wrap:wrap}
   .hero-meta div{display:flex;flex-direction:column;gap:3px}
   .hero-meta .k{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
   .hero-meta .v{font-size:25px;font-weight:700}
-  .hero-meta .v span{color:var(--ember)}
+  .hero-meta .v .c1{color:var(--green)} .hero-meta .v .c2{color:var(--brass)}
 
-  /* intake console — the centerpiece */
-  section.intake{padding:58px 0 26px}
-  .console{position:relative;background:var(--beige);border:1px solid var(--sand);
-    border-radius:16px;overflow:hidden;box-shadow:0 24px 60px -28px rgba(120,72,30,.32)}
+  /* intake console */
+  section.intake{padding:54px 0 18px}
+  .console{position:relative;background:var(--beige);border:1px solid var(--sand);border-radius:16px;overflow:hidden;box-shadow:0 24px 60px -28px rgba(120,72,30,.32)}
   .console::before{content:"";position:absolute;left:0;top:0;height:4px;width:100%;
     background:linear-gradient(90deg,var(--ember-deep),var(--ember-bright),var(--ember-deep))}
-  .console-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
-    padding:26px 32px;border-bottom:1px solid var(--sand);flex-wrap:wrap;background:var(--beige-2)}
+  .console-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:26px 32px;border-bottom:1px solid var(--sand);flex-wrap:wrap;background:var(--beige-2)}
   .console-head h2{font-size:27px;font-weight:700;margin:0;letter-spacing:-.01em}
   .console-head p{margin:7px 0 0;color:var(--ink-soft);font-size:16px;max-width:48ch}
-  .tag{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ember);
-    border:1px solid rgba(217,83,27,.4);padding:6px 12px;border-radius:999px;white-space:nowrap}
+  .tag{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ember);border:1px solid rgba(217,83,27,.4);padding:6px 12px;border-radius:999px;white-space:nowrap}
+  .tag.ok{color:var(--green);border-color:rgba(27,122,82,.5)}
   .console-body{padding:32px}
   .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 24px}
-  .field{display:flex;flex-direction:column;gap:8px}
-  .field.full{grid-column:1 / -1}
+  .field{display:flex;flex-direction:column;gap:8px} .field.full{grid-column:1 / -1}
   label{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
-  label .req{color:var(--ember)}
-  input,select,textarea{font-family:var(--serif);font-size:17px;color:var(--ink);
-    background:var(--paper);border:1px solid var(--sand);border-radius:10px;padding:14px 15px;
-    width:100%;transition:border-color .18s,box-shadow .18s}
+  label .req{color:var(--ember)} label .opt{color:var(--ink-faint)}
+  input,select,textarea{font-family:var(--serif);font-size:17px;color:var(--ink);background:var(--paper);border:1px solid var(--sand);border-radius:10px;padding:14px 15px;width:100%;transition:border-color .18s,box-shadow .18s}
   textarea{resize:vertical;min-height:140px;line-height:1.55}
   ::placeholder{color:#b6ab98;font-style:italic}
-  select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' stroke='%236e6357' stroke-width='1.5' fill='none'/></svg>");
-    background-repeat:no-repeat;background-position:right 15px center;padding-right:40px;cursor:pointer}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ember);
-    box-shadow:0 0 0 3px rgba(217,83,27,.14)}
-  input:focus-visible,select:focus-visible,textarea:focus-visible{
-    outline:2px solid var(--ember);outline-offset:2px}
+  select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' stroke='%236e6357' stroke-width='1.5' fill='none'/></svg>");background-repeat:no-repeat;background-position:right 15px center;padding-right:40px;cursor:pointer}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ember);box-shadow:0 0 0 3px rgba(217,83,27,.14)}
+  input[aria-invalid="true"],textarea[aria-invalid="true"]{border-color:#c0390a;box-shadow:0 0 0 3px rgba(192,57,10,.12)}
+  .row-between{display:flex;justify-content:space-between;align-items:center;gap:10px}
   .hint{font-size:13.5px;font-style:italic;color:var(--ink-faint)}
+  .counter{font-size:12.5px;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+  .counter.warn{color:var(--ember)}
   .err{color:#c0390a;font-size:13.5px;min-height:0}
+  /* honeypot */
+  .hp{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden}
 
-  .console-foot{display:flex;align-items:center;justify-content:space-between;gap:18px;
-    padding:6px 32px 32px;flex-wrap:wrap}
-  .pledge{font-size:14.5px;font-style:italic;color:var(--ink-faint);max-width:46ch;line-height:1.55}
-  .fire{font-family:var(--serif);font-weight:700;font-size:17px;color:#fff;
-    background:linear-gradient(180deg,var(--ember-bright),var(--ember));border:0;border-radius:11px;
-    padding:15px 32px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;white-space:nowrap;
-    box-shadow:0 12px 30px -8px rgba(217,83,27,.5);transition:transform .14s,box-shadow .18s,filter .18s}
+  .console-foot{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:6px 32px 30px;flex-wrap:wrap}
+  .safe-note{display:flex;align-items:center;gap:8px;font-size:14px;font-style:italic;color:var(--navy);max-width:42ch}
+  .safe-note svg{width:16px;height:16px;flex:none;stroke:var(--navy)}
+  .fire{font-family:var(--serif);font-weight:700;font-size:17px;color:#fff;background:linear-gradient(180deg,var(--ember-bright),var(--ember));border:0;border-radius:11px;padding:15px 32px;cursor:pointer;display:inline-flex;align-items:center;gap:10px;white-space:nowrap;box-shadow:0 12px 30px -8px rgba(217,83,27,.5);transition:transform .14s,box-shadow .18s}
   .fire:hover{transform:translateY(-1px);box-shadow:0 16px 40px -8px rgba(217,83,27,.6)}
-  .fire:active{transform:translateY(0)}
-  .fire:disabled{opacity:.65;cursor:default;transform:none}
+  .fire:active{transform:translateY(0)} .fire:disabled{opacity:.65;cursor:default;transform:none}
   .fire:focus-visible{outline:3px solid var(--ember-bright);outline-offset:3px}
+
+  /* risk-reversal strip */
+  .reassure{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0 0;justify-content:center}
+  .reassure .pill{display:inline-flex;align-items:center;gap:9px;background:var(--paper);border:1px solid var(--sand);border-radius:999px;padding:11px 18px;font-size:15.5px;color:var(--ink)}
+  .reassure .pill svg{width:17px;height:17px;flex:none}
+  .reassure .p-cost svg{stroke:var(--green)} .reassure .p-obl svg{stroke:var(--brass)} .reassure .p-safe svg{stroke:var(--navy)}
 
   /* forged confirmation */
   .forged{display:none;padding:58px 32px 60px;text-align:center}
   .forged.show{display:block;animation:rise .7s ease both}
   @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-  .forged .ring{width:64px;height:64px;border-radius:50%;margin:0 auto 22px;
-    background:radial-gradient(circle at 50% 40%,var(--ember-bright),var(--ember-deep));
-    box-shadow:0 0 0 8px rgba(217,83,27,.12),0 14px 40px -10px rgba(217,83,27,.55);
-    display:flex;align-items:center;justify-content:center}
+  .forged .ring{width:64px;height:64px;border-radius:50%;margin:0 auto 22px;background:radial-gradient(circle at 50% 40%,#33b07d,var(--green-deep));box-shadow:0 0 0 8px rgba(27,122,82,.12),0 14px 40px -10px rgba(27,122,82,.5);display:flex;align-items:center;justify-content:center}
   .forged .ring svg{width:30px;height:30px;stroke:#fff}
   .forged h3{font-size:30px;font-weight:700;margin:0 0 10px;letter-spacing:-.01em}
   .forged p{color:var(--ink-soft);margin:0 auto;max-width:50ch;font-size:17px}
-  .castid{font-size:16px;color:var(--ember);margin:24px auto 4px;letter-spacing:.08em;
-    border:1px dashed rgba(217,83,27,.45);border-radius:9px;padding:11px 18px;display:inline-block}
-  .reset{margin-top:26px;background:none;border:1px solid var(--sand);color:var(--ink-soft);
-    font-family:var(--serif);font-size:15px;padding:11px 20px;border-radius:9px;cursor:pointer;transition:border-color .15s,color .15s}
-  .reset:hover{border-color:var(--ember);color:var(--ink)}
+  .castid{font-size:16px;color:var(--green-deep);margin:24px auto 4px;letter-spacing:.08em;border:1px dashed rgba(27,122,82,.5);border-radius:9px;padding:11px 18px;display:inline-block}
+  .reset{margin-top:26px;background:none;border:1px solid var(--sand);color:var(--ink-soft);font-family:var(--serif);font-size:15px;padding:11px 20px;border-radius:9px;cursor:pointer;transition:border-color .15s,color .15s}
+  .reset:hover{border-color:var(--green);color:var(--ink)}
 
-  /* process — a real sequence */
-  section.process{padding:80px 0 26px}
-  .sec-label{font-style:italic;font-size:18px;color:var(--ember);margin:0 0 32px}
+  /* section scaffolding */
+  .sec-label{font-style:italic;font-size:18px;margin:0 0 30px}
+  .sec-label.green{color:var(--green)} .sec-label.brass{color:var(--brass)}
+
+  /* confidentiality vault (the one dark block — security through restraint) */
+  section.vault{margin:64px 0 0;background:var(--navy);color:var(--navy-soft)}
+  .vault-in{max-width:var(--maxw);margin:0 auto;padding:64px 28px 68px}
+  .vault-top{display:flex;align-items:center;gap:14px;margin:0 0 10px}
+  .vault-top svg{width:30px;height:30px;stroke:#fff;flex:none}
+  .vault h2{color:#fff;font-size:clamp(30px,4.4vw,46px);font-weight:700;margin:0;letter-spacing:-.01em}
+  .vault .sub{color:var(--navy-soft);font-size:18px;max-width:58ch;margin:14px 0 34px;opacity:.92}
+  .vault-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .vcard{border:1px solid var(--navy-line);border-radius:14px;padding:24px 22px 26px;background:rgba(255,255,255,.03)}
+  .vcard svg{width:22px;height:22px;stroke:#cdb47a;margin-bottom:12px}
+  .vcard h4{color:#fff;font-size:19px;font-weight:700;margin:0 0 8px}
+  .vcard p{color:var(--navy-soft);font-size:15.5px;margin:0;opacity:.9}
+  .vault-nda{margin:30px 0 0;font-size:17px;color:#fff}
+  .vault-nda a{color:#e9c87f;text-decoration:underline}
+
+  /* growth / value (green) */
+  section.grow{padding:78px 0 26px}
+  .grow h2{font-size:clamp(28px,4vw,42px);font-weight:700;margin:0 0 14px;letter-spacing:-.01em;max-width:18ch}
+  .grow .em-green{color:var(--green);font-style:italic}
+  .grow .copy{color:var(--ink-soft);font-size:18px;max-width:60ch;margin:0 0 8px}
+  .grow .copy .worth{color:var(--brass-deep);font-weight:700}
+  .grow-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+  .gstep{position:relative;background:var(--green-soft);border:1px solid #cfe6d8;border-radius:14px;padding:26px 24px}
+  .gstep .ic{width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid #cfe6d8;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .gstep .ic svg{width:20px;height:20px;stroke:var(--green-deep)}
+  .gstep h4{font-size:20px;font-weight:700;margin:0 0 6px}
+  .gstep p{color:var(--ink-soft);font-size:15.5px;margin:0}
+
+  /* how it works */
+  section.process{padding:60px 0 26px}
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
   .step{background:var(--beige);border:1px solid var(--sand);border-radius:14px;padding:30px 28px 32px}
   .step .num{font-size:14px;letter-spacing:.14em;color:var(--ember);text-transform:uppercase}
@@ -149,24 +158,31 @@
   .step p{color:var(--ink-soft);font-size:16px;margin:0}
   .step .when{font-size:13px;font-style:italic;color:var(--ink-faint);margin-top:18px;display:block}
 
+  /* team */
+  section.team{padding:70px 0 30px}
+  .team .lead{color:var(--ink-soft);font-size:18px;max-width:60ch;margin:0 0 34px}
+  .team .lead b{color:var(--ink)}
+  .faces{display:flex;flex-wrap:wrap;gap:26px}
+  .face{display:flex;flex-direction:column;align-items:center;gap:10px;width:140px;text-align:center}
+  .face .av{width:88px;height:88px;border-radius:50%;object-fit:cover;border:2px solid var(--sand);background:var(--beige);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:700;color:var(--brass-deep)}
+  .face .nm{font-size:17px;font-weight:700;line-height:1.2}
+  .face .rl{font-size:13.5px;color:var(--ink-soft)}
+
   /* footer */
   footer{padding:64px 0 60px;margin-top:30px;border-top:1px solid var(--sand)}
   .foot-in{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
   .foot-in .mark{font-size:18px}
   footer .fine{font-size:14px;color:var(--ink-faint);font-style:italic}
-  footer a{color:var(--ember);text-decoration:none}
-  footer a:hover{text-decoration:underline}
+  footer a{color:var(--ember);text-decoration:none} footer a:hover{text-decoration:underline}
 
   @media(max-width:760px){
     .wrap{padding:0 20px}
-    header.hero{padding:60px 0 18px}
-    .nav-right{gap:16px}
-    .nav-link{display:none}
+    header.hero{padding:60px 0 14px}
+    .nav-right{gap:16px} .nav-link{display:none}
     .grid{grid-template-columns:1fr}
-    .console-body{padding:24px 20px}
-    .console-head{padding:22px 20px}
-    .console-foot{padding:4px 20px 26px}
-    .steps{grid-template-columns:1fr}
+    .console-body{padding:24px 20px} .console-head{padding:22px 20px} .console-foot{padding:4px 20px 26px}
+    .vault-grid,.grow-steps,.steps{grid-template-columns:1fr}
+    .vault-in{padding:48px 20px 52px}
     .hero-meta{gap:28px}
   }
   @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
@@ -179,6 +195,7 @@
     <a href="#" class="mark">DayZero<span class="slash">/</span><span class="dim">Foundry</span></a>
     <div class="nav-right">
       <a class="nav-link" href="#how">How it works</a>
+      <a class="nav-link" href="#vault">Your idea is safe</a>
       <a class="nav-cta" href="https://www.veixon.com/#contact" target="_blank" rel="noopener">Contact us</a>
     </div>
   </div>
@@ -192,9 +209,9 @@
     <p class="lede">DayZeroFoundry takes your idea — however rough — and forges it into a working MVP. <b>Built by our dev team, at zero cost to you,</b> starting day zero. You bring the spark. We bring the build.</p>
     <span class="strap">Idea in. Product out.</span>
     <div class="hero-meta">
-      <div><span class="k">Your cost</span><span class="v"><span>₹0</span></span></div>
+      <div><span class="k">Your cost</span><span class="v"><span class="c1">₹0</span></span></div>
+      <div><span class="k">Your idea</span><span class="v"><span class="c2">stays yours</span></span></div>
       <div><span class="k">Built by</span><span class="v">our dev team</span></div>
-      <div><span class="k">Timeline</span><span class="v">shaped by your idea</span></div>
     </div>
   </div>
 </header>
@@ -212,110 +229,164 @@
 
       <div class="console-body" id="formBody">
         <div class="grid">
-          <!-- Honeypot field for spam prevention -->
-          <div class="field" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;" aria-hidden="true">
-            <label for="company_url">Leave this field blank</label>
-            <input id="company_url" type="text" name="company_url" tabindex="-1" autocomplete="off" />
-          </div>
-
           <div class="field">
             <label for="name">Your name <span class="req">*</span></label>
-            <input id="name" type="text" placeholder="What should we call you?" autocomplete="name" aria-required="true" aria-invalid="false" />
+            <input id="name" type="text" placeholder="What should we call you?" autocomplete="name" aria-describedby="err-name" />
             <span class="err" id="err-name" aria-live="polite"></span>
           </div>
           <div class="field">
             <label for="email">Personal email <span class="req">*</span></label>
-            <input id="email" type="email" placeholder="you@gmail.com" autocomplete="email" aria-required="true" aria-invalid="false" />
+            <input id="email" type="email" placeholder="you@gmail.com" autocomplete="email" aria-describedby="err-email" />
             <span class="hint">Use a personal email, not a work one — avoids any company security flags.</span>
             <span class="err" id="err-email" aria-live="polite"></span>
           </div>
           <div class="field">
-            <label for="role">What you do <span style="color:var(--ink-faint)">(optional)</span></label>
+            <label for="role">What you do <span class="opt">(optional)</span></label>
             <select id="role">
               <option value="">Select…</option>
-              <option value="Founder">Founder</option>
-              <option value="Student">Student</option>
-              <option value="Developer or Engineer">Developer or Engineer</option>
-              <option value="Designer or Creator">Designer or Creator</option>
-              <option value="Business or Product">Business or Product</option>
-              <option value="Working professional">Working professional</option>
-              <option value="Just someone with an idea">Just someone with an idea</option>
+              <option>Founder</option>
+              <option>Student</option>
+              <option>Developer / Engineer</option>
+              <option>Designer / Creator</option>
+              <option>Business / Product</option>
+              <option>Working professional</option>
+              <option>Just someone with an idea</option>
             </select>
           </div>
           <div class="field">
-            <label for="company">Company or project <span style="color:var(--ink-faint)">(optional)</span></label>
+            <label for="company">Company or project <span class="opt">(optional)</span></label>
             <input id="company" type="text" placeholder="If it has a name yet" autocomplete="organization" />
           </div>
 
           <div class="field full">
-            <label for="idea">Your idea <span class="req">*</span></label>
-            <textarea id="idea" maxlength="4000" placeholder="What do you want to exist that doesn't yet? Say it the way you'd say it out loud." aria-required="true" aria-invalid="false"></textarea>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 4px;">
-              <span class="hint">The rawer the better. We'll help you sharpen it.</span>
-              <span class="hint" id="char-counter" style="transition: color 0.15s;">0 / 4000</span>
+            <div class="row-between">
+              <label for="idea">Your idea <span class="req">*</span></label>
+              <span class="counter" id="counter">0 / 4000</span>
             </div>
+            <textarea id="idea" maxlength="4000" placeholder="What do you want to exist that doesn't yet? Say it the way you'd say it out loud." aria-describedby="err-idea"></textarea>
+            <span class="hint">The rawer the better. We'll help you sharpen it.</span>
             <span class="err" id="err-idea" aria-live="polite"></span>
+          </div>
+
+          <!-- honeypot: hidden from people, bots fill it; submissions with it set are dropped -->
+          <div class="hp" aria-hidden="true">
+            <label for="company_url">Leave this empty</label>
+            <input id="company_url" type="text" tabindex="-1" autocomplete="off" />
           </div>
         </div>
       </div>
 
       <div class="console-foot" id="formFoot">
-        <p class="pledge" style="font-style: italic;">Your idea stays yours. A real person reads every submission.</p>
+        <p class="safe-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+          Your idea stays yours. A real person reads every submission.
+        </p>
         <button class="fire" id="fireBtn">Send my idea</button>
       </div>
 
       <div class="forged" id="forged">
-        <div class="ring">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-        </div>
+        <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
         <h3>Got it — it's in the forge.</h3>
-        <p>Your idea is with us. We'll review it ourselves and reach out soon — keep an eye on your inbox.</p>
+        <p>Your idea is with us and stays confidential. We'll review it ourselves and reach out soon — keep an eye on your inbox.</p>
         <div class="castid" id="castid">DZ-00-XXXX</div>
         <div><button class="reset" id="resetBtn">Send another idea</button></div>
       </div>
     </div>
+
+    <div class="reassure">
+      <span class="pill p-cost"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 0 1 5 0c0 2.5-2.5 1.8-2.5 4"/><path d="M12 17h.01"/></svg>Zero cost</span>
+      <span class="pill p-obl"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>No obligation</span>
+      <span class="pill p-safe"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 6.5-7 8-4-1.5-7-4-7-8V6z"/></svg>Your idea stays yours</span>
+    </div>
   </div>
 </section>
 
-<section class="trust" style="padding: 60px 0 20px;">
-  <div class="wrap" style="max-width: 650px; text-align: center; margin: 0 auto;">
-    <h3 style="font-size: 26px; font-weight: 700; margin: 0 0 16px; letter-spacing: -0.01em;">Why it's free</h3>
-    <p style="color: var(--ink-soft); font-size: 18px; line-height: 1.65; margin: 0 0 18px;">
-      We're Veixon — we build products for a living. DayZeroFoundry is how we partner with great ideas early. We build your MVP for free; if it takes off, we talk about working together. Either way, the idea is yours.
-    </p>
-    <p style="font-weight: 700; font-style: italic; color: var(--ink); font-size: 17px; margin: 0;">
-      Your idea stays yours — we don't share or reuse it.
-    </p>
+<!-- ============ CONFIDENTIALITY VAULT ============
+     PLACEHOLDER COPY — confirm these reflect your real practice before going live. -->
+<section class="vault" id="vault">
+  <div class="vault-in">
+    <div class="vault-top">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.3"/></svg>
+      <h2>Your idea stays yours.</h2>
+    </div>
+    <p class="sub">In software, your idea is the currency — so we treat it like it's under lock and key. No third party, no reuse, no exceptions.</p>
+    <div class="vault-grid">
+      <div class="vcard">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="6"/><path d="M15 12h6M18 12v4M21 12v3"/></svg>
+        <h4>Only the build team sees it</h4>
+        <p>Your submission goes straight to the small team that would build it — never wider, never shared around.</p>
+      </div>
+      <div class="vcard">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h13M3 12h13M3 18h9"/><path d="M18 15l3 3-3 3" opacity="0"/><circle cx="19" cy="9" r="0" /></svg>
+        <h4>Never reused or sold</h4>
+        <p>We don't reuse your idea for our own products, and we never sell or pass your details to anyone.</p>
+      </div>
+      <div class="vcard">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4-3 6.5-7 8-4-1.5-7-4-7-8V6z"/><path d="M9 12l2 2 4-4"/></svg>
+        <h4>You keep 100% of the IP</h4>
+        <p>The idea, and anything we build from it, belongs to you — always. We're the foundry, not the owner.</p>
+      </div>
+    </div>
+    <p class="vault-nda">Want it in writing? We'll sign a mutual NDA before you share a single detail — <a href="https://www.veixon.com/#contact" target="_blank" rel="noopener">just ask us</a>.</p>
   </div>
 </section>
 
-<section class="process" id="how">
+<!-- ============ GROWTH / VALUE ============ -->
+<section class="grow">
   <div class="wrap">
-    <p class="sec-label">How day zero works</p>
-    <div class="steps">
-      <div class="step">
-        <span class="num">01 — Intake</span>
-        <h4>You share the idea</h4>
-        <p>One short form. We sit with it and come back with what we'd build first, and why.</p>
-        <span class="when">Day zero · zero cost</span>
+    <p class="sec-label brass">Your idea grows with us</p>
+    <h2>We back great ideas <span class="em-green">early</span>.</h2>
+    <!-- [WHY IT'S FREE] replace with your real reason -->
+    <p class="copy">In software, ideas are the <span class="worth">real currency</span>. We'd rather put our team and time behind a strong one now — at zero cost to you — than watch it sit in your notes. If it grows into something, we'd love to keep building it together. Either way, it stays yours.</p>
+    <div class="grow-steps">
+      <div class="gstep">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3-1 4-2 6s0 4 2 4c1-2 3-2 3 1a4 4 0 1 1-7 0c0-4 4-5 4-11z"/></svg></div>
+        <h4>Your spark</h4>
+        <p>A raw idea, in a few honest sentences. That's all we need to start.</p>
       </div>
-      <div class="step">
-        <span class="num">02 — Blueprint</span>
-        <h4>We scope the smallest real thing</h4>
-        <p>A quick chat to agree on the MVP that proves your idea is worth more.</p>
-        <span class="when">Right after we connect</span>
+      <div class="gstep">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-7"/><path d="M12 13c0-3 2-5 5-5 0 3-2 5-5 5z"/><path d="M12 15c0-2-2-4-5-4 0 2 2 4 5 4z"/></svg></div>
+        <h4>We forge it</h4>
+        <p>Our team shapes the smallest real version that proves it works.</p>
       </div>
-      <div class="step">
-        <span class="num">03 — Forge</span>
-        <h4>Our team builds it</h4>
-        <p>You get a working MVP you can click, demo, and put in front of real people.</p>
-        <span class="when">Timeline depends on the idea</span>
+      <div class="gstep">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h4>A working MVP</h4>
+        <p>Something you can click, demo, and put in front of real people.</p>
       </div>
     </div>
   </div>
 </section>
 
-<hr class="seam" style="margin-top:40px" />
+<!-- ============ HOW IT WORKS ============ -->
+<section class="process" id="how">
+  <div class="wrap">
+    <p class="sec-label green">How day zero works</p>
+    <div class="steps">
+      <div class="step"><span class="num">01 — Intake</span><h4>You share the idea</h4><p>One short form. We come back with what we'd build first, and why.</p><span class="when">Day zero · zero cost</span></div>
+      <div class="step"><span class="num">02 — Blueprint</span><h4>We scope the smallest real thing</h4><p>A quick chat to agree on the MVP that proves your idea is worth more.</p><span class="when">Right after we connect</span></div>
+      <div class="step"><span class="num">03 — Forge</span><h4>Our team builds it</h4><p>You get a working MVP you can click, demo, and share.</p><span class="when">Timeline depends on the idea</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TEAM ============
+     Pulled from veixon.com — confirm names/roles/photos before going live. -->
+<section class="team">
+  <div class="wrap">
+    <p class="sec-label brass">Built by people who ship</p>
+    <p class="lead">DayZeroFoundry is built by the <b>Veixon</b> team — the same people behind Veixon Decisions and Veixon Co-Founder. Real builders, not a faceless inbox.</p>
+    <div class="faces">
+      <div class="face"><img class="av" src="https://www.veixon.com/team/Abhinav.png" alt="Abhinav Rishi" onerror="this.outerHTML='<div class=\'av\'>AR</div>'"><span class="nm">Abhinav Rishi</span><span class="rl">Founder, CEO</span></div>
+      <div class="face"><img class="av" src="https://www.veixon.com/team/siddardha.png" alt="V S Sai Siddardh" onerror="this.outerHTML='<div class=\'av\'>SS</div>'"><span class="nm">V S Sai Siddardh</span><span class="rl">Co-founder, Director</span></div>
+      <div class="face"><img class="av" src="https://www.veixon.com/team/shlok.jpeg" alt="Shlok Karn" onerror="this.outerHTML='<div class=\'av\'>SK</div>'"><span class="nm">Shlok Karn</span><span class="rl">Co-founder, CTO</span></div>
+      <div class="face"><img class="av" src="https://www.veixon.com/team/ARJUN.png" alt="Arjun J" onerror="this.outerHTML='<div class=\'av\'>AJ</div>'"><span class="nm">Arjun J</span><span class="rl">Developer</span></div>
+      <div class="face"><div class="av">+</div><span class="nm">& the team</span><span class="rl">Dev & design</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="seam" style="margin-top:30px" />
 <footer>
   <div class="wrap foot-in">
     <a href="#" class="mark">DayZero<span class="slash">/</span><span class="dim">Foundry</span></a>
@@ -325,279 +396,76 @@
 
 <script>
 (function(){
-  /* ─────────── CONFIG ───────────
-     DEMO_MODE = true  → no backend needed; the form just shows a success screen (good for previewing).
-     DEMO_MODE = false → sends a real POST to API_URL (your deployed backend).
-  */
+  /* DEMO_MODE true = preview without a backend. Set false + your API_URL to go live. */
   var DEMO_MODE = false;
   var API_URL   = '/api/intake';
+  var DRAFT_KEY = 'dzf_draft';
+  var MIN_IDEA  = 20, MAX_IDEA = 4000;
 
   var btn = document.getElementById('fireBtn');
-  var ideaTextarea = document.getElementById('idea');
-  var charCounter = document.getElementById('char-counter');
-  var consoleCard = document.getElementById('console');
-  var honeypotField = document.getElementById('company_url');
-  
-  var fields = ['name', 'email', 'role', 'company', 'idea'];
-  var requiredFields = ['name', 'email', 'idea'];
+  var ideaEl = document.getElementById('idea');
+  var counter = document.getElementById('counter');
+  var ids = ['name','email','role','company','idea'];
 
-  // Analytics Event Tracker Stub
-  function track(event, data) {
-    console.log('Analytics Event:', event, data || '');
-    // TODO: Wire Vercel Analytics / Plausible / GA4 here
-    if (window.va) {
-      window.va('event', { name: event, data: data });
-    }
+  function store(get){ try{ if(get) return JSON.parse(localStorage.getItem(DRAFT_KEY)||'{}');
+    var d={}; ids.forEach(function(f){ d[f]=document.getElementById(f).value; }); localStorage.setItem(DRAFT_KEY, JSON.stringify(d)); }catch(e){} return {}; }
+  function clearStore(){ try{ localStorage.removeItem(DRAFT_KEY); }catch(e){} }
+
+  /* restore draft */
+  (function(){ var d=store(true); ids.forEach(function(f){ if(d[f]) document.getElementById(f).value=d[f]; }); updateCounter(); })();
+
+  function updateCounter(){ var n=ideaEl.value.length; counter.textContent=n+' / '+MAX_IDEA; counter.classList.toggle('warn', n>MAX_IDEA-200); }
+  ideaEl.addEventListener('input', function(){ updateCounter(); store(); });
+  ids.forEach(function(f){ document.getElementById(f).addEventListener('input', store); });
+
+  function setErr(f,m){ var el=document.getElementById('err-'+f); el.textContent=m||''; var inp=document.getElementById(f); if(inp) inp.setAttribute('aria-invalid', m?'true':'false'); }
+  function clearErr(){ ['name','email','idea'].forEach(function(f){ setErr(f,''); }); }
+  function isEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+  function validate(d){
+    clearErr(); var firstBad=null;
+    if(!d.idea || d.idea.length<MIN_IDEA){ setErr('idea', d.idea? 'A little more detail, please — even a sentence or two.' : 'The forge needs an idea to work with.'); firstBad=firstBad||'idea'; }
+    if(!d.email){ setErr('email','We need an email to reach you.'); firstBad='email'; }
+    else if(!isEmail(d.email)){ setErr('email','That email looks off — check it.'); firstBad='email'; }
+    if(!d.name){ setErr('name','Tell us who to reply to.'); firstBad='name'; }
+    return firstBad;
   }
-
-  // Track form_start on first field focus
-  var formStarted = false;
-  fields.forEach(function(f) {
-    var el = document.getElementById(f);
-    if (el) {
-      el.addEventListener('focus', function() {
-        if (!formStarted) {
-          formStarted = true;
-          track('form_start');
-        }
-      });
-    }
-  });
-
-  // Character Counter Logic
-  function updateCharCounter(val) {
-    var len = val.length;
-    charCounter.textContent = len + ' / 4000';
-    if (len >= 3800) {
-      charCounter.style.color = 'var(--ember)';
-      charCounter.style.fontWeight = 'bold';
-    } else {
-      charCounter.style.color = 'var(--ink-faint)';
-      charCounter.style.fontWeight = 'normal';
-    }
-  }
-
-  // Draft Autosave & Restore
-  function restoreDraft() {
-    fields.forEach(function(f) {
-      var el = document.getElementById(f);
-      if (el) {
-        var savedVal = localStorage.getItem('dz_draft_' + f);
-        if (savedVal !== null) {
-          el.value = savedVal;
-          if (f === 'idea') {
-            updateCharCounter(savedVal);
-          }
-        }
-      }
-    });
-  }
-
-  function saveDraft() {
-    fields.forEach(function(f) {
-      var el = document.getElementById(f);
-      if (el) {
-        localStorage.setItem('dz_draft_' + f, el.value);
-      }
-    });
-  }
-
-  function clearDraft() {
-    fields.forEach(function(f) {
-      localStorage.removeItem('dz_draft_' + f);
-    });
-  }
-
-  // Bind input events for draft saving
-  fields.forEach(function(f) {
-    var el = document.getElementById(f);
-    if (el) {
-      var eventType = (f === 'role') ? 'change' : 'input';
-      el.addEventListener(eventType, function() {
-        saveDraft();
-        if (f === 'idea') {
-          updateCharCounter(this.value);
-        }
-      });
-    }
-  });
-
-  // Load draft on startup
-  restoreDraft();
-
-  // Helper functions for errors
-  function clearErr(){ 
-    requiredFields.forEach(function(f){ 
-      var errEl = document.getElementById('err-'+f);
-      errEl.textContent=''; 
-      var el = document.getElementById(f);
-      el.setAttribute('aria-invalid', 'false');
-      el.removeAttribute('aria-describedby');
-    }); 
-  }
-  
-  function setErr(f, m){ 
-    var errEl = document.getElementById('err-'+f);
-    errEl.textContent = m; 
-    var el = document.getElementById(f);
-    el.setAttribute('aria-invalid', 'true');
-    el.setAttribute('aria-describedby', 'err-' + f);
-  }
-
-  function isEmail(v){ 
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); 
-  }
-
-  // Field level validation
-  function validateField(f) {
-    var el = document.getElementById(f);
-    var val = el.value.trim();
-    var isValid = true;
-    var msg = '';
-
-    if (f === 'name') {
-      if (!val) {
-        msg = 'Tell us who to reply to.';
-        isValid = false;
-      }
-    } else if (f === 'email') {
-      if (!val) {
-        msg = 'We need an email to reach you.';
-        isValid = false;
-      } else if (!isEmail(val)) {
-        msg = 'That email looks off — check it.';
-        isValid = false;
-      }
-    } else if (f === 'idea') {
-      if (!val) {
-        msg = 'The forge needs an idea to work with.';
-        isValid = false;
-      } else if (val.length < 20) {
-        msg = 'Your idea description is too short (minimum 20 characters).';
-        isValid = false;
-      }
-    }
-
-    if (!isValid) {
-      setErr(f, msg);
-    } else {
-      var errEl = document.getElementById('err-'+f);
-      if (errEl) errEl.textContent='';
-      el.setAttribute('aria-invalid', 'false');
-      el.removeAttribute('aria-describedby');
-    }
-    return isValid;
-  }
-
-  // Inline Validation on Blur
-  requiredFields.forEach(function(f) {
-    var el = document.getElementById(f);
-    if (el) {
-      el.addEventListener('blur', function() {
-        validateField(f);
-      });
-    }
-  });
-
-  // Keyboard shortcut: Cmd/Ctrl + Enter inside console card
-  consoleCard.addEventListener('keydown', function(e) {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
-      e.preventDefault();
-      btn.click();
-    }
-  });
 
   function showForged(id){
     document.getElementById('formBody').style.display='none';
     document.getElementById('formFoot').style.display='none';
-    document.getElementById('tag').textContent='Received';
-    document.getElementById('castid').textContent = id || ('DZ-00-' + Math.floor(1000 + Math.random() * 9000));
+    var tag=document.getElementById('tag'); tag.textContent='Received'; tag.classList.add('ok');
+    document.getElementById('castid').textContent = id || ('DZ-00-'+Math.floor(1+Math.random()*9999).toString().padStart(4,'0'));
     document.getElementById('forged').classList.add('show');
-    
-    // Clear draft storage since it successfully saved
-    clearDraft();
-    
-    // Track success
-    track('form_submit_success', { castId: id });
-
+    clearStore();
     document.getElementById('console').scrollIntoView({behavior:'smooth', block:'center'});
   }
 
-  btn.addEventListener('click', async function(){
-    clearErr();
-    
-    var data = {
-      name:        document.getElementById('name').value.trim(),
-      email:       document.getElementById('email').value.trim(),
-      role:        document.getElementById('role').value.trim(),
-      company:     document.getElementById('company').value.trim(),
-      idea:        document.getElementById('idea').value.trim(),
-      company_url: honeypotField.value // Honeypot field
-    };
-
-    var ok = true;
-    var firstInvalidField = null;
-
-    // Run full validation check
-    requiredFields.forEach(function(f) {
-      var fieldOk = validateField(f);
-      if (!fieldOk) {
-        ok = false;
-        if (!firstInvalidField) {
-          firstInvalidField = document.getElementById(f);
-        }
-      }
-    });
-
-    if(!ok) {
-      if (firstInvalidField) {
-        firstInvalidField.focus();
-        document.getElementById('console').scrollIntoView({behavior:'smooth', block:'start'});
-      }
-      return;
-    }
-
-    if(DEMO_MODE){ 
-      showForged(); 
-      return; 
-    }
-
-    btn.disabled = true; 
-    btn.textContent = 'Sending…';
-    
+  async function submit(){
+    var d={ name:val('name'), email:val('email'), role:val('role'), company:val('company'), idea:val('idea'), company_url:document.getElementById('company_url').value };
+    var bad=validate(d);
+    if(bad){ document.getElementById(bad).focus(); return; }
+    if(DEMO_MODE){ showForged(); return; }
+    btn.disabled=true; btn.textContent='Sending…';
     try{
-      var res = await fetch(API_URL, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(data)
-      });
-      var out = await res.json();
-      if(!res.ok) throw new Error(out.error || 'Request failed');
+      var res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});
+      var out=await res.json(); if(!res.ok) throw new Error(out.error||'failed');
       showForged(out.castId);
-    }catch(e){
-      setErr('idea', e.message || 'Could not send right now — please try again in a moment.');
-      btn.disabled = false; 
-      btn.textContent = 'Send my idea';
-    }
-  });
+    }catch(e){ setErr('idea','Could not send right now — please try again in a moment.'); btn.disabled=false; btn.textContent='Send my idea'; }
+  }
+  function val(f){ return (document.getElementById(f).value||'').trim(); }
+
+  btn.addEventListener('click', submit);
+  /* Ctrl/Cmd+Enter submits */
+  document.querySelector('.console-body').addEventListener('keydown', function(e){ if((e.metaKey||e.ctrlKey)&&e.key==='Enter') submit(); });
 
   document.getElementById('resetBtn').addEventListener('click', function(){
-    ['name','email','company','idea','company_url'].forEach(function(f){ 
-      var el = document.getElementById(f);
-      if (el) el.value=''; 
-    });
-    document.getElementById('role').value='';
-    
-    // Reset Char Counter UI
-    updateCharCounter('');
-    
-    clearErr();
+    ids.forEach(function(f){ document.getElementById(f).value=''; });
+    document.getElementById('role').value=''; clearErr(); updateCounter();
     document.getElementById('forged').classList.remove('show');
-    document.getElementById('formBody').style.display='';
-    document.getElementById('formFoot').style.display='';
-    document.getElementById('tag').textContent='Intake';
-    btn.disabled=false; 
-    btn.textContent='Send my idea';
+    document.getElementById('formBody').style.display=''; document.getElementById('formFoot').style.display='';
+    var tag=document.getElementById('tag'); tag.textContent='Intake'; tag.classList.remove('ok');
+    btn.disabled=false; btn.textContent='Send my idea';
     document.getElementById('console').scrollIntoView({behavior:'smooth', block:'start'});
   });
 })();

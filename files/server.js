@@ -6,7 +6,7 @@ const nodemailer = require('nodemailer');
 const path = require('path');
 
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: '64kb' }));
 app.use(cors({ origin: process.env.ALLOWED_ORIGIN || '*' }));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
@@ -19,11 +19,11 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch(err => console.error('MongoDB connection error:', err.message));
 
 const ideaSchema = new mongoose.Schema({
-  name:    { type: String, required: true, trim: true },
-  email:   { type: String, required: true, trim: true, lowercase: true },
-  role:    { type: String, trim: true, default: '' },
-  company: { type: String, trim: true, default: '' },
-  idea:    { type: String, required: true, trim: true },
+  name:    { type: String, required: true, trim: true, maxlength: 120 },
+  email:   { type: String, required: true, trim: true, lowercase: true, maxlength: 200 },
+  role:    { type: String, trim: true, default: '', maxlength: 200 },
+  company: { type: String, trim: true, default: '', maxlength: 200 },
+  idea:    { type: String, required: true, trim: true, maxlength: 4000 },
   castId:  { type: String, index: true },
   ip:      { type: String, default: '' },
   createdAt: { type: Date, default: Date.now }
@@ -36,138 +36,83 @@ const transporter = nodemailer.createTransport({
   auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
 });
 
-// ── in-memory rate limiting map: ip -> Array of timestamps ──
-const rateLimits = {};
-const LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
-const MAX_SUBMISSIONS = 5;
-
-function rateLimiter(req, res, next) {
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
-  const now = Date.now();
-
-  if (!rateLimits[ip]) {
-    rateLimits[ip] = [];
-  }
-
-  // Filter timestamps outside of the window
-  rateLimits[ip] = rateLimits[ip].filter(timestamp => now - timestamp < LIMIT_WINDOW_MS);
-
-  if (rateLimits[ip].length >= MAX_SUBMISSIONS) {
-    return res.status(429).json({ error: 'Too many submissions. Please try again later.' });
-  }
-
-  rateLimits[ip].push(now);
-  next();
-}
-
 function genCastId() {
   return 'DZ-00-' + Math.floor(1 + Math.random() * 9999).toString().padStart(4, '0');
 }
-function isEmail(v) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v || '');
-}
-function sanitize(str) {
-  if (typeof str !== 'string') return '';
-  return str.replace(/<[^>]*>/g, '').trim();
+function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v || ''); }
+function cap(v, n) { return String(v || '').trim().slice(0, n); }
+
+// ── simple per-IP rate limit: max 5 / 10 min (swap for Redis/Upstash at scale) ──
+const hits = new Map();
+function rateLimited(ip) {
+  const now = Date.now(), windowMs = 10 * 60 * 1000, max = 5;
+  const arr = (hits.get(ip) || []).filter(t => now - t < windowMs);
+  arr.push(now); hits.set(ip, arr);
+  return arr.length > max;
 }
 
-// ── the intake endpoint the page posts to ──
-app.post('/api/intake', rateLimiter, async (req, res) => {
+// ── intake endpoint ──
+app.post('/api/intake', async (req, res) => {
   try {
-    const { name, email, role = '', company = '', idea, company_url } = req.body || {};
+    const b = req.body || {};
 
-    // 1. Honeypot check (silently accept, do not send email or save to DB)
-    if (company_url) {
-      console.log(`[Spam Blocked] Honeypot triggered by IP: ${req.headers['x-forwarded-for'] || req.socket.remoteAddress}`);
-      const fakeCastId = genCastId();
-      return res.json({ ok: true, castId: fakeCastId });
-    }
+    // honeypot: bots fill this; pretend success and drop it
+    if (b.company_url) return res.json({ ok: true, castId: genCastId() });
 
-    if (!name || !email || !idea) {
-      return res.status(400).json({ error: 'Name, email and idea are required.' });
-    }
+    const ip = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
+    if (rateLimited(ip)) return res.status(429).json({ error: 'Too many submissions — please try again in a bit.' });
 
-    const sanitizedName = sanitize(name);
-    const sanitizedEmail = sanitize(email).toLowerCase();
-    const sanitizedRole = sanitize(role);
-    const sanitizedCompany = sanitize(company);
-    const sanitizedIdea = sanitize(idea);
+    const name    = cap(b.name, 120);
+    const email   = cap(b.email, 200).toLowerCase();
+    const role    = cap(b.role, 200);
+    const company = cap(b.company, 200);
+    const idea    = cap(b.idea, 4000);
 
-    // 2. Server-side validation length caps
-    if (sanitizedName.length > 120) {
-      return res.status(400).json({ error: 'Name must be 120 characters or less.' });
-    }
-    if (sanitizedEmail.length > 200 || !isEmail(sanitizedEmail)) {
-      return res.status(400).json({ error: 'Please provide a valid email under 200 characters.' });
-    }
-    if (sanitizedRole.length > 200) {
-      return res.status(400).json({ error: 'Role must be 200 characters or less.' });
-    }
-    if (sanitizedCompany.length > 200) {
-      return res.status(400).json({ error: 'Company must be 200 characters or less.' });
-    }
-    if (sanitizedIdea.length < 20) {
-      return res.status(400).json({ error: 'Your idea must be at least 20 characters.' });
-    }
-    if (sanitizedIdea.length > 4000) {
-      return res.status(400).json({ error: 'Your idea must be 4000 characters or less.' });
-    }
+    if (!name || !email || !idea) return res.status(400).json({ error: 'Name, email and idea are required.' });
+    if (!isEmail(email))          return res.status(400).json({ error: 'That email looks invalid.' });
+    if (idea.length < 20)         return res.status(400).json({ error: 'Please add a little more detail to your idea.' });
 
     const castId = genCastId();
-    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '';
-    
-    // Save to Database
-    const doc = await Idea.create({ 
-      name: sanitizedName, 
-      email: sanitizedEmail, 
-      role: sanitizedRole, 
-      company: sanitizedCompany, 
-      idea: sanitizedIdea, 
-      castId,
-      ip 
-    });
+    const doc = await Idea.create({ name, email, role, company, idea, castId, ip });
 
-    // Notify the team (fire-and-forget)
+    // 1) notify the team
     transporter.sendMail({
       from: `"DayZeroFoundry" <${process.env.SMTP_USER}>`,
-      replyTo: sanitizedEmail,
+      replyTo: email,
       to: NOTIFY.join(','),
-      subject: `New idea — ${sanitizedName} (${castId})`,
+      subject: `New idea — ${name} (${castId})`,
       text:
 `New DayZeroFoundry intake
 
 Cast ID : ${castId}
-Name    : ${sanitizedName}
-Email   : ${sanitizedEmail}
-Role    : ${sanitizedRole || '—'}
-Company : ${sanitizedCompany || '—'}
-IP      : ${ip}
+Name    : ${name}
+Email   : ${email}
+Role    : ${role || '—'}
+Company : ${company || '—'}
 
 Idea
 ----
-${sanitizedIdea}
+${idea}
 `
-    }).catch(err => console.error('Team email notification send error:', err.message));
+    }).catch(err => console.error('Team email error:', err.message));
 
-    // Notify the submitter (fire-and-forget)
+    // 2) confirmation to the submitter
     transporter.sendMail({
-      from: `"DayZeroFoundry" <${process.env.SMTP_USER}>`,
-      to: sanitizedEmail,
-      subject: `We've received your idea! (${castId})`,
+      from: `"DayZeroFoundry (Veixon)" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: `We've got your idea — ${castId}`,
       text:
-`Hi ${sanitizedName},
+`Hi ${name},
 
-We've successfully received your idea for the forge!
+Thanks for trusting us with your idea — it's in the forge.
 
-Your reference/cast ID is: ${castId}
+Your reference is ${castId}. A real person from our team reads every submission,
+and we'll reach out to you soon. Your idea stays confidential and remains yours.
 
-Our team will review it and get back to you soon at this email address. Keep an eye on your inbox.
-
-Warmly,
-The DayZeroFoundry / Veixon Team
+— The DayZeroFoundry team, by Veixon
 https://www.veixon.com
 `
-    }).catch(err => console.error('Submitter email confirmation send error:', err.message));
+    }).catch(err => console.error('Confirmation email error:', err.message));
 
     return res.json({ ok: true, castId, id: doc._id });
   } catch (err) {
@@ -176,7 +121,6 @@ https://www.veixon.com
   }
 });
 
-// Serve the intake frontend page
 app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, 'dayzerofoundry.html'));
 });
